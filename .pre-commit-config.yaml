@@ -24,3 +24,7 @@ repos:
             "-rn",
             "-sn",
             ]
+-   repo: https://github.com/psf/black
+    rev: stable
+    hooks:
+    -   id: black
