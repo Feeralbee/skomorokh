@@ -8,4 +8,4 @@ image_name="skomorokh"
 
 docker build -t ${image_name} ${self_dir}/docker
 
-docker run -it -v ${self_dir}:/skomorokh ${image_name}
+docker run -it --rm -v ${self_dir}:/skomorokh ${image_name}
