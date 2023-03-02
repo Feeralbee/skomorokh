@@ -1,13 +1,15 @@
 """Initialize bot and run events dispathcing"""
 import logging
+import asyncio
 from aiogram import Bot, Dispatcher
 from src.config import load_config
 from src.handlers.user import register_user_handlers
+from src.middlewares.dbconnector import DBConnector
 
 logging.basicConfig(level=logging.INFO)
 
 
-def main() -> None:
+async def main() -> None:
     """
     Initialize Bot instance with an default parse mode which will be passed to all API calls
     And the run events dispatching
@@ -15,9 +17,10 @@ def main() -> None:
     config = load_config(".env")
     bot = Bot(str(config.bot_token), parse_mode="HTML")
     dispatcher = Dispatcher()
+    dispatcher.message.middleware.register(DBConnector(config.database_connection_str))
     register_user_handlers(dispatcher)
-    dispatcher.run_polling(bot)
+    await dispatcher.start_polling(bot)
 
 
 if __name__ == "__main__":
-    main()
+    asyncio.run(main())

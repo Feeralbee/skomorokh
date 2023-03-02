@@ -4,7 +4,7 @@ from src.keyboards.buttons import Buttons
 
 
 def main_menu_keyboard() -> types.ReplyKeyboardMarkup:
-    """Create main menu keyboard"""
+    """Creating the main menu keyboard"""
     keyboard_buttons = [
         [types.KeyboardButton(text=Buttons.ADD_JOKE.value)],
         [types.KeyboardButton(text=Buttons.WATCH_JOKES.value)],
