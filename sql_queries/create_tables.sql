@@ -13,7 +13,7 @@ CREATE TABLE if not exists "users" (
 CREATE TABLE if not exists "jokes" (
   "id" SERIAL UNIQUE PRIMARY KEY,
   "status" status NOT NULL DEFAULT 'under_consideration',
-  "joke" text UNIQUE NOT NULL,
+  "joke" text NOT NULL,
   "author_id" int NOT NULL,
   "created_at" timestamp NOT NULL
 );
