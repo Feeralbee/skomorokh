@@ -6,6 +6,7 @@ from src.db.connector import Connector
 
 
 class DBConnector(BaseMiddleware):  # pylint: disable=R0903
+    # disabling R0903 because there is no need for a class of public methods
     """Middleware to get database connector in handler"""
 
     def __init__(self, connection_str: str) -> None:
