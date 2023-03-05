@@ -14,7 +14,7 @@ async def user_start_handler(message: Message, dbconnector: Connector) -> None:
     """
     add_user(dbconnector, message.from_user.id, message.from_user.full_name)
     await message.answer(
-        f"Привет, {message.from_user.full_name}!\n"  # type: ignore[union-attr]
+        f"Привет, {message.from_user.full_name}!\n"
         + "Этот бот может показать вам анекдоты, которые оставили другие пользователи."
         + "Можно также оставлять свои анекдоты",
         reply_markup=main_menu_keyboard(),
