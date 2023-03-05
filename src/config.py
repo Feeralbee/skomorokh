@@ -13,7 +13,7 @@ class Config:
 
 
 def load_config(path: str = "") -> Config:
-    """Return object of Config initiliaze this from .env file"""
+    """The returned configuration object initialized from the .env file"""
     env = Env()
     env.read_env(path)
 
