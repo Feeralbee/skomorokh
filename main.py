@@ -17,7 +17,7 @@ async def main() -> None:
     config = load_config(".env")
     bot = Bot(str(config.bot_token), parse_mode="HTML")
     dispatcher = Dispatcher()
-    dispatcher.message.middleware.register(DBConnector(config.database_connection_str))
+    dispatcher.update.outer_middleware(DBConnector(config.database_connection_str))
     register_user_handlers(dispatcher)
     await dispatcher.start_polling(bot)
 
