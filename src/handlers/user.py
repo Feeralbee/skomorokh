@@ -54,7 +54,7 @@ async def watch_jokes_handler(message: Message) -> None:  # pylint: disable=c011
 
 
 def register_user_handlers(dispatcher: Dispatcher) -> None:
-    """Register user message handlers to dispatcher"""
+    """Registers user message handlers to dispatcher"""
     dispatcher.message.register(user_start_handler, Command(commands=["start", "help"]))
     dispatcher.message.register(
         add_joke_handler, Text(text=str(Buttons.ADD_JOKE.value))

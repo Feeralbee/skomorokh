@@ -16,6 +16,6 @@ def get_managing_new_jokes_keyboard() -> types.InlineKeyboardMarkup:
         ]
     ]
     return types.InlineKeyboardMarkup(
-        keyboard=keyboard_buttons,
+        inline_keyboard=keyboard_buttons,
         resize_keyboard=True,
     )
