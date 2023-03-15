@@ -31,3 +31,18 @@ def get_under_consideration_joke(connector: Connector):
                 1"""
     cursor.execute(query)
     return cursor.fetchone()
+
+
+def update_publication_status(
+    connector: Connector, joke_id: int, publication_status: str
+):
+    """Updates publication status for joke by joke_id"""
+    cursor = connector.get_cursor()
+    query = """UPDATE
+                jokes
+               SET
+                publication_status = %s
+               WHERE
+                joke_id = %s"""
+    cursor.execute(query, (publication_status, joke_id))
+    connector.connection.commit()
