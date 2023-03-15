@@ -14,5 +14,4 @@ class AddingJoke(StatesGroup):
 class ManagingNewJokes(StatesGroup):
     """States for Managing new joke"""
 
-    joke_id: int
     choosing_an_action = State()
