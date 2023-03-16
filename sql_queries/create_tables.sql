@@ -1,6 +1,6 @@
 CREATE TYPE "status" AS ENUM (
   'approved',
-  'not_approved',
+  'disapproved',
   'under_consideration'
 );
 
