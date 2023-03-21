@@ -60,6 +60,6 @@ def register_user_handlers(dispatcher: Dispatcher) -> None:
         add_joke_handler, Text(text=str(Buttons.ADD_JOKE.value))
     )
     dispatcher.message.register(
-        watch_jokes_handler, Text(text=Buttons.WATCH_JOKES.value)
+        watch_jokes_handler, Text(text=Buttons.VIEWING_JOKES.value)
     )
     dispatcher.message.register(joke_was_introduced, AddingJoke.inputting_joke_text)
