@@ -7,15 +7,14 @@ from src.handlers.states import AddingJoke
 from src.keyboards.reply import main_menu_keyboard, adding_joke_keyboard
 from src.keyboards.buttons import Buttons
 from src.db.connector import Connector
-from src.db.queries.users import add_user
-from src.db.queries.jokes import add_joke
+from src.db.queries import users, jokes
 
 
 async def user_start_handler(message: Message, dbconnector: Connector) -> None:
     """
     This procedure handles the /start and /help commands
     """
-    add_user(dbconnector, message.from_user.id, message.from_user.full_name)
+    users.add_user(dbconnector, message.from_user.id, message.from_user.full_name)
     await message.answer(
         f"Привет, {message.from_user.full_name}!\n"
         + "Этот бот может показать вам анекдоты, которые оставили другие пользователи."
@@ -42,15 +41,17 @@ async def joke_was_introduced(
     if message.text == Buttons.CANCEL.value:
         await message.answer("Добавление отменено", reply_markup=main_menu_keyboard())
     else:
-        add_joke(dbconnector, message.text, message.from_user.id)
+        jokes.add_joke(dbconnector, message.text, message.from_user.id)
         await message.answer(
             "Анекдот получен и отправлен на проверку", reply_markup=main_menu_keyboard()
         )
     await state.clear()
 
 
-async def watch_jokes_handler(message: Message) -> None:  # pylint: disable=c0116, w0613
-    pass  # Need to create watch jokes handler
+async def viewing_jokes_handler(message: Message, dbconnector: Connector) -> None:
+    """This procedure handles "Показать анекдот" message"""
+    joke = jokes.get_random_approved_joke(dbconnector)
+    await message.answer(joke)
 
 
 def register_user_handlers(dispatcher: Dispatcher) -> None:
@@ -60,6 +61,6 @@ def register_user_handlers(dispatcher: Dispatcher) -> None:
         add_joke_handler, Text(text=str(Buttons.ADD_JOKE.value))
     )
     dispatcher.message.register(
-        watch_jokes_handler, Text(text=Buttons.VIEWING_JOKES.value)
+        viewing_jokes_handler, Text(text=Buttons.VIEWING_JOKES.value)
     )
     dispatcher.message.register(joke_was_introduced, AddingJoke.inputting_joke_text)
