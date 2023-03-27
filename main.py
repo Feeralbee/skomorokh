@@ -1,4 +1,4 @@
-"""Initialize bot and run events dispathcing"""
+"""Initialize bot and run events dispatching"""
 import logging
 import asyncio
 from aiogram import Bot, Dispatcher
