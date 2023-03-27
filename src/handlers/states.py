@@ -7,4 +7,4 @@ from aiogram.fsm.state import StatesGroup, State
 class AddingJoke(StatesGroup):
     """States for adding joke"""
 
-    inputing_joke_text = State()
+    inputting_joke_text = State()
