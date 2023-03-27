@@ -32,7 +32,7 @@ async def add_joke_handler(message: Message, state: FSMContext) -> None:
         "Введите текст анекдота, который хотели бы добавить",
         reply_markup=adding_joke_keyboard(),
     )
-    await state.set_state(AddingJoke.inputing_joke_text)
+    await state.set_state(AddingJoke.inputting_joke_text)
 
 
 async def joke_was_introduced(
@@ -62,4 +62,4 @@ def register_user_handlers(dispatcher: Dispatcher) -> None:
     dispatcher.message.register(
         watch_jokes_handler, Text(text=Buttons.WATCH_JOKES.value)
     )
-    dispatcher.message.register(joke_was_introduced, AddingJoke.inputing_joke_text)
+    dispatcher.message.register(joke_was_introduced, AddingJoke.inputting_joke_text)
