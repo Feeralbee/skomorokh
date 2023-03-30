@@ -7,6 +7,7 @@ from src.keyboards.reply import main_menu_keyboard
 from src.handlers.states import ManagingNewJokes
 from src.db.connector import Connector
 from src.filters.is_admin import IsAdmin
+from src.misc.status import Status
 from src.misc import utils
 
 
@@ -22,7 +23,7 @@ async def approve_anecdote_handler(
     call: CallbackQuery, state: FSMContext, dbconnector: Connector
 ) -> None:
     """This procedure handles 'approve' callback data"""
-    await utils.set_publication_status(call, state, dbconnector, "approved")
+    await utils.set_publication_status(call, state, dbconnector, Status.APPROVED)
     await utils.manage_jokes(call.message, state, dbconnector)
 
 
@@ -30,7 +31,7 @@ async def disapprove_anecdote_handler(
     call: CallbackQuery, state: FSMContext, dbconnector: Connector
 ) -> None:
     """This procedure handles 'disapprove' callback data"""
-    await utils.set_publication_status(call, state, dbconnector, "not_approved")
+    await utils.set_publication_status(call, state, dbconnector, Status.DISAPPROVED)
     await utils.manage_jokes(call.message, state, dbconnector)
 
 

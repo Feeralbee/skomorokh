@@ -5,6 +5,7 @@ from src.keyboards import inline
 from src.db.queries.jokes import get_under_consideration_joke, update_publication_status
 from src.keyboards import reply
 from src.db.connector import Connector
+from src.misc.status import Status
 from src.handlers.states import ManagingNewJokes
 
 
@@ -28,9 +29,12 @@ async def manage_jokes(
 
 
 async def set_publication_status(
-    call: CallbackQuery, state: FSMContext, dbconnector: Connector, status: str
+    call: CallbackQuery,
+    state: FSMContext,
+    dbconnector: Connector,
+    publication_status: Status,
 ) -> None:
     """Sets publication status"""
     data = await state.get_data()
-    update_publication_status(dbconnector, data["joke_id"], status)
+    update_publication_status(dbconnector, data["joke_id"], publication_status)
     await call.message.edit_reply_markup(reply_markup=None)

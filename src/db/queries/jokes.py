@@ -1,6 +1,7 @@
 """Queries to jokes table"""
 from datetime import datetime
 from src.db.connector import Connector
+from src.misc.status import Status
 
 
 def add_joke(connector: Connector, joke: str, user_id: int):
@@ -18,13 +19,13 @@ def add_joke(connector: Connector, joke: str, user_id: int):
 def get_under_consideration_joke(connector: Connector):
     """Gets the joke_id and joke_text of the joke from the jokes table, which is under review"""
     cursor = connector.get_cursor()
-    query = """SELECT
+    query = f"""SELECT
                 joke_id,
                 joke_text
                FROM
                 jokes
                WHERE
-                publication_status='under_consideration'
+                publication_status='{Status.UNDER_CONSIDERATION.value}'
                ORDER BY
                 joke_id
                LIMIT
@@ -34,7 +35,7 @@ def get_under_consideration_joke(connector: Connector):
 
 
 def update_publication_status(
-    connector: Connector, joke_id: int, publication_status: str
+    connector: Connector, joke_id: int, publication_status: Status
 ):
     """Updates publication status for joke by joke_id"""
     cursor = connector.get_cursor()
@@ -44,5 +45,5 @@ def update_publication_status(
                 publication_status = %s
                WHERE
                 joke_id = %s"""
-    cursor.execute(query, (publication_status, joke_id))
+    cursor.execute(query, (publication_status.value, joke_id))
     connector.connection.commit()
