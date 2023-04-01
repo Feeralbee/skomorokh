@@ -19,18 +19,18 @@ def add_joke(connector: Connector, joke: str, user_id: int):
 def get_under_consideration_joke(connector: Connector):
     """Gets the joke_id and joke_text of the joke from the jokes table, which is under review"""
     cursor = connector.get_cursor()
-    query = f"""SELECT
+    query = """SELECT
                 joke_id,
                 joke_text
                FROM
                 jokes
                WHERE
-                publication_status='{Status.UNDER_CONSIDERATION.value}'
+                publication_status = %s
                ORDER BY
                 joke_id
                LIMIT
                 1"""
-    cursor.execute(query)
+    cursor.execute(query, (Status.UNDER_CONSIDERATION.value,))
     return cursor.fetchone()
 
 
