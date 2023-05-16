@@ -13,3 +13,21 @@ def add_joke(connector: Connector, joke: str, user_id: int):
                  (%s, %s, %s)"""
     cursor.execute(query, (joke, user_id, datetime.now()))
     connector.connection.commit()
+
+
+def get_random_approved_joke(connector: Connector) -> str:
+    """Gets random approved joke"""
+    cursor = connector.get_cursor()
+    query = """SELECT
+                 joke_text
+               FROM
+                 jokes
+               WHERE
+                 publication_status = 'approved'
+               ORDER BY
+                 random()
+               LIMIT
+                 1"""
+    cursor.execute(query)
+    data = cursor.fetchone()
+    return data[0]
