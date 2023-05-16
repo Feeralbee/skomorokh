@@ -4,7 +4,7 @@ from src.keyboards.buttons import Buttons
 
 
 def main_menu_keyboard() -> types.ReplyKeyboardMarkup:
-    """Creating the main menu keyboard"""
+    """Creates the main menu virtual reply keyboard"""
     keyboard_buttons = [
         [types.KeyboardButton(text=Buttons.ADD_JOKE.value)],
         [types.KeyboardButton(text=Buttons.WATCH_JOKES.value)],
@@ -17,7 +17,7 @@ def main_menu_keyboard() -> types.ReplyKeyboardMarkup:
 
 
 def adding_joke_keyboard() -> types.ReplyKeyboardMarkup:
-    """Create keyboard with button cancel"""
+    """Creates virtual reply keyboard with button cancel"""
     keyboard_buttons = [[types.KeyboardButton(text=Buttons.CANCEL.value)]]
     return types.ReplyKeyboardMarkup(
         keyboard=keyboard_buttons,

@@ -8,3 +8,10 @@ class AddingJoke(StatesGroup):
     """States for adding joke"""
 
     inputting_joke_text = State()
+
+
+@dataclass
+class ManagingNewJokes(StatesGroup):
+    """States for Managing new joke"""
+
+    choosing_an_action = State()
