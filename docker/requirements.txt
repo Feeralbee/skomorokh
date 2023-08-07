@@ -1,4 +1,4 @@
 virtualenv==20.23.0
 environs==9.5.0
-aiogram==3.0.0b7
+aiogram==3.0.0rc1
 psycopg==3.1.9
